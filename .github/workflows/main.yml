@@ -41,7 +41,7 @@ jobs:
             # Log in to the Docker Hub
             echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             # Replace this with your deployment script
-            #docker pull ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME:latest
-            #docker stop python
-            #docker rm python
-            docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME
+            docker pull ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME:latest
+            docker stop python
+            docker rm python
+            #docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME
