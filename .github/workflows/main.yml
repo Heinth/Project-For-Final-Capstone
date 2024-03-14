@@ -29,8 +29,6 @@ jobs:
    runs-on: ubuntu-latest
    steps:
       - name: Deploy to Server
-        env:
-          IMAGE_NAME: python
         if: success() # Only deploy if the previous steps were successful
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -41,7 +39,7 @@ jobs:
             # Log in to the Docker Hub
             echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             # Replace this with your deployment script
-            docker pull ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME:latest
+            docker pull ${{secrets.DOCKERHUB_USERNAME}}/python:latest
             docker stop python
             docker rm python
-            #docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME
+            #docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/python
