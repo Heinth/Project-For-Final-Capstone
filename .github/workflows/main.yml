@@ -42,7 +42,7 @@ jobs:
             docker pull ${{secrets.DOCKERHUB_USERNAME}}/python:latest
             docker stop python || true  # Stop container if it exists, ignore errors if it doesn't
             docker rm python || true    # Remove container if it exists, ignore errors if it doesn't
-            #docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/python
+            docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/python
 
   test_http:
       needs: deploy_to_server
