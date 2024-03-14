@@ -29,6 +29,8 @@ jobs:
    runs-on: ubuntu-latest
    steps:
       - name: Deploy to Server
+        env:
+          IMAGE_NAME: python
         if: success() # Only deploy if the previous steps were successful
         uses: appleboy/ssh-action@v1.0.0
         with:
