@@ -42,4 +42,19 @@ jobs:
             docker pull ${{secrets.DOCKERHUB_USERNAME}}/python:latest
             docker stop python || true  # Stop container if it exists, ignore errors if it doesn't
             docker rm python || true    # Remove container if it exists, ignore errors if it doesn't
-            docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/python
+            #docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/python
+
+  test_http:
+      needs: deploy_to_server
+      runs-on: ubuntu-latest
+      steps:
+      - name: Test HTTP return code
+        run: |
+          status=$(curl -I 18.136.107.195:8080 2>/dev/null | head -n 1 | cut -d$' ' -f2)
+          echo "HTTP return code: $status"
+          if [ "$status" == "200" ]; then
+            echo "HTTP return code is OK."
+          else
+            echo "HTTP return code is not OK. Status code: $status"
+            exit 1
+          fi
