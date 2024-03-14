@@ -27,7 +27,6 @@ jobs:
   deploy_to_server:
    needs: build
    runs-on: ubuntu-latest
-
    steps:
       - name: Deploy to Server
         if: success() # Only deploy if the previous steps were successful
@@ -43,4 +42,4 @@ jobs:
             docker pull ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME:latest
             docker stop python
             docker rm python
-            docker run -d -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME:latest
+            docker run -d -it -p 8080:8080 --name python ${{secrets.DOCKERHUB_USERNAME}}/$IMAGE_NAME
